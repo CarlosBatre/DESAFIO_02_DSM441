@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VentaExpressMuebles</string>
+    <string name="app_name">Venta Express</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="hello_world">Hellow World</string>
@@ -12,4 +12,13 @@
     <string name="login_with_github">Continuar con GitHub</string>
     <string name="github_login_error">Error al iniciar sesión con GitHub</string>
     <string name="github_login_success">Inicio de sesión exitoso con GitHub</string>
+
+    <!-- Item Product strings -->
+    <string name="product_name">Nombre del producto</string>
+    <string name="product_price">$5.00 - Stock: 5</string>
+
+    <!-- Item Customer strings -->
+    <string name="customer_fullName">Nombre del cliente</string>
+    <string name="customer_email">Example@gmail.com</string>
+    <string name="customer_phoneNumber">+503 0000-0000</string>
 </resources>

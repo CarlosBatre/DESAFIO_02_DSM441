@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VentaExpressMuebles">
         <activity
+            android:name=".InsertCustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InsertProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ClientesActivity"
             android:exported="false" />
         <activity

@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "udb.edu.sv.ventaexpressmuebles"
-        minSdk = 36
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -51,6 +51,7 @@ dependencies {
 
     // Firebase BOM para gestión de versiones
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation(libs.firebase.database)
 
     // Testing dependencies
     testImplementation(libs.junit)
