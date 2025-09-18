@@ -1,17 +1,20 @@
 package udb.edu.sv.ventaexpressmuebles
 
-import androidx.recyclerview.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+
 class ProductSaleAdapter(
     private var list: MutableList<Product>,
     private val onQuantityChange: (SaleItem) -> Unit
-): RecyclerView.Adapter<ProductSaleAdapter.ProductSaleVH>() {
+) : RecyclerView.Adapter<ProductSaleAdapter.ProductSaleVH>() {
 
-    inner class ProductSaleVH(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ProductSaleVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lblName: TextView = itemView.findViewById(R.id.lblSaleProductName)
         val lblPrice: TextView = itemView.findViewById(R.id.lblSaleProductPrice)
         val txtQuantity: TextInputEditText = itemView.findViewById(R.id.txtSaleQuantity)
@@ -28,14 +31,20 @@ class ProductSaleAdapter(
         holder.lblName.text = product.name
         holder.lblPrice.text = "$${product.price}"
 
-        holder.txtQuantity.setOnEditorActionListener { v, _, _ ->
-            val qty = v.text.toString().toIntOrNull() ?: 0
-            if (qty > 0) {
+        // Limpia el campo para evitar residuos al reciclar vistas
+        holder.txtQuantity.setText("")
+
+        // Agrega un TextWatcher para actualizar la cantidad en tiempo real
+        holder.txtQuantity.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val qty = s?.toString()?.toIntOrNull() ?: 0
                 val item = SaleItem(product.id, product.name, qty, product.price ?: 0f)
                 onQuantityChange(item)
             }
-            false
-        }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     override fun getItemCount(): Int = list.size
