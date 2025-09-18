@@ -70,7 +70,13 @@ class VentasActivity : AppCompatActivity() {
     }
 
     private fun loadCustomers() {
-        dbReference.child("Customer").addListenerForSingleValueEvent(object : ValueEventListener {
+
+        val UID = auth.currentUser?.uid ?: return
+
+        dbReference.child("Customer")
+            .orderByChild("employeeId")
+            .equalTo(UID)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 customers.clear()
                 for (child in snapshot.children) {
@@ -90,7 +96,13 @@ class VentasActivity : AppCompatActivity() {
     }
 
     private fun loadProducts() {
-        dbReference.child("Product").addListenerForSingleValueEvent(object : ValueEventListener {
+
+        val UID = auth.currentUser?.uid ?: return
+
+        dbReference.child("Product")
+            .orderByChild("employeeId")
+            .equalTo(UID)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val list = mutableListOf<Product>()
                 for (child in snapshot.children) {

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -21,6 +22,7 @@ class ProductoActivity : AppCompatActivity(), ProductAdapter.OnProductAction {
     private lateinit var btnAddProduct: FloatingActionButton
     private lateinit var dbReference: DatabaseReference
     private lateinit var adapter: ProductAdapter
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -36,27 +38,26 @@ class ProductoActivity : AppCompatActivity(), ProductAdapter.OnProductAction {
 
     private fun listenChanges() {
 
-        dbReference.addValueEventListener(object: ValueEventListener {
+        val UID = auth.currentUser?.uid ?: return
 
-            override fun onDataChange(snapshot: DataSnapshot) {
+        dbReference.orderByChild("employeeId")
+            .equalTo(UID)
+            .addValueEventListener(object : ValueEventListener {
 
-                val list = mutableListOf<Product>()
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-                for(child in snapshot.children) {
-
-                    val product = child.getValue(Product::class.java)
-                    if(product != null) list.add(product)
-
+                    val list = mutableListOf<Product>()
+                    for (child in snapshot.children) {
+                        val product = child.getValue(Product::class.java)
+                        if (product != null) list.add(product)
+                    }
+                    adapter.setData(list)
                 }
-                adapter.setData(list)
 
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ProductoActivity, "Error: ${error.message}", Toast.LENGTH_LONG).show()
-            }
-
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ProductoActivity, "Error: ${error.message}", Toast.LENGTH_LONG).show()
+                }
+            })
 
     }
 
@@ -90,6 +91,7 @@ class ProductoActivity : AppCompatActivity(), ProductAdapter.OnProductAction {
         rcvProducts = findViewById(R.id.rcvProducts)
         btnAddProduct = findViewById(R.id.btnAddProduct)
         dbReference = FirebaseDatabase.getInstance().reference.child("Product")
+        auth = FirebaseAuth.getInstance()
 
         adapter = ProductAdapter(mutableListOf(), this)
         rcvProducts.layoutManager = LinearLayoutManager(this)

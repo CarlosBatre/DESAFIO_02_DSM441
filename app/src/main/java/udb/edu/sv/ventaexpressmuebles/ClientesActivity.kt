@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -21,6 +22,7 @@ class ClientesActivity : AppCompatActivity(), CustomerAdapter.OnCustomerAction {
     private lateinit var btnAddCustomer: FloatingActionButton
     private lateinit var dbReference: DatabaseReference
     private lateinit var adapter: CustomerAdapter
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -35,24 +37,34 @@ class ClientesActivity : AppCompatActivity(), CustomerAdapter.OnCustomerAction {
     }
 
     private fun listenChanges() {
-        val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        val UID = auth.currentUser?.uid ?: return
 
         dbReference.orderByChild("employeeId")
-            .equalTo(uid)
+            .equalTo(UID)
             .addValueEventListener(object : ValueEventListener {
+
                 override fun onDataChange(snapshot: DataSnapshot) {
+
                     val list = mutableListOf<Customer>()
+
                     for (child in snapshot.children) {
+
                         val customer = child.getValue(Customer::class.java)
                         if (customer != null) list.add(customer)
+
                     }
+
                     adapter.setData(list)
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(this@ClientesActivity, "Error: ${error.message}", Toast.LENGTH_LONG).show()
                 }
+
             })
+
     }
 
     override fun onEdit(customer: Customer) {
@@ -84,6 +96,7 @@ class ClientesActivity : AppCompatActivity(), CustomerAdapter.OnCustomerAction {
         rcvCustomer = findViewById(R.id.rcvCustomers)
         btnAddCustomer = findViewById(R.id.btnAddCustomers)
         dbReference = FirebaseDatabase.getInstance().reference.child("Customer")
+        auth = FirebaseAuth.getInstance()
 
         adapter = CustomerAdapter(mutableListOf(), this)
         rcvCustomer.layoutManager = LinearLayoutManager(this)

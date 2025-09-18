@@ -84,6 +84,7 @@ class InsertCustomerActivity : AppCompatActivity() {
 
             val generateId = dbReference.push().key ?: return
             val customer = Customer(generateId, fullName, email, phoneNumber, UID)
+
             dbReference.child(generateId).setValue(customer)
                 .addOnSuccessListener { Toast.makeText(this, "Cliente registrado", Toast.LENGTH_SHORT).show() }
                 .addOnFailureListener { Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show() }
@@ -91,7 +92,8 @@ class InsertCustomerActivity : AppCompatActivity() {
         }
         else {
 
-            val customer = Customer(id, fullName, email, phoneNumber)
+            val customer = Customer(id, fullName, email, phoneNumber, UID)
+
             dbReference.child(id!!).setValue(customer)
                 .addOnSuccessListener { Toast.makeText(this, "Información del cliente actualizada", Toast.LENGTH_SHORT).show() }
                 .addOnFailureListener { Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show() }
