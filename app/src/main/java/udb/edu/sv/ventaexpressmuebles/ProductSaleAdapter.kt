@@ -31,10 +31,8 @@ class ProductSaleAdapter(
         holder.lblName.text = product.name
         holder.lblPrice.text = "$${product.price}"
 
-        // Limpia el campo para evitar residuos al reciclar vistas
         holder.txtQuantity.setText("")
 
-        // Agrega un TextWatcher para actualizar la cantidad en tiempo real
         holder.txtQuantity.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val qty = s?.toString()?.toIntOrNull() ?: 0
