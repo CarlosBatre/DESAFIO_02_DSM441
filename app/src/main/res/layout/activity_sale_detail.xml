@@ -1,0 +1,33 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblSaleDetailCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cliente: "
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/lblSaleDetailDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha: "/>
+
+    <TextView
+        android:id="@+id/lblSaleDetailTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: "
+        android:textStyle="bold"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvSaleItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

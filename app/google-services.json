@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694569733431",
+    "project_id": "tiedaexpressmuebles",
+    "storage_bucket": "tiedaexpressmuebles.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694569733431:android:93d29c3839c3902f3e9eb2",
+        "android_client_info": {
+          "package_name": "udb.edu.sv.ventaexpressmuebles"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeFQVyE-CqemLDAE4Cj2EAkb8_L334yOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
