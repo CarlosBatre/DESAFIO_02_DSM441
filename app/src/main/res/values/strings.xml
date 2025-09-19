@@ -21,4 +21,9 @@
     <string name="customer_fullName">Nombre del cliente</string>
     <string name="customer_email">Example@gmail.com</string>
     <string name="customer_phoneNumber">+503 0000-0000</string>
+
+    <!-- FB Auth strings -->
+    <string name="facebook_app_id">1264806932046885</string>
+    <string name="facebook_client_token">1a871fc4bf1d6ef2a4ef255c13c04c33</string>
+    <string name="fb_login_protocol_scheme">fb1264806932046885</string>
 </resources>
