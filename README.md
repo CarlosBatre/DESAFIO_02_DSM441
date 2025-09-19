@@ -6,7 +6,7 @@ Jeferson Edenilson Campos Rosales - CR241530
 
 Carlo Josue Ruano Batres - RB230288 
 
-#EL PROYECTO SE UBICA EN LA RAMA DESAFIO#
+# EL PROYECTO SE UBICA EN LA RAMA "DESAFIO"
 
 LINK VIDEO
 
